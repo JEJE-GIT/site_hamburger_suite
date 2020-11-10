@@ -54,3 +54,57 @@
   }
 
 }
+
+.sub-grid {
+  display: grid;
+  grid-row-gap: 30px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 70px;
+
+  grid-template-areas:
+  "header header header header"
+   "title title title title"
+  "aside image image description"
+  "aside gallery gallery gallery";
+}
+
+
+@media screen and (max-width: $vw-large) {
+
+  .sub-grid {
+
+    grid-template-areas:
+
+    "header header header header"
+   "title title title title"
+    "aside aside aside ."
+  "image image description description"
+  "gallery gallery gallery gallery";
+
+  }
+
+}
+
+.grid-header {
+  grid-area: header;
+}
+
+.grid-intro {
+  grid-area: title;
+}
+
+.grid-aside {
+  grid-area: aside;
+}
+
+.grid-image {
+  grid-area: image;
+}
+
+.grid-description {
+  grid-area: description;
+}
+
+.grid-gallery {
+  grid-area: gallery;
+}
