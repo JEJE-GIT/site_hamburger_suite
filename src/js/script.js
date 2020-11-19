@@ -29,7 +29,57 @@ document.addEventListener("DOMContentLoaded", function(event) {
             description: "Cake sweet tiramisu lollipop donut sprinkles dolor tiramisu marzipan jelly. Tiramisu muffin cookie orange dolor marzipan croissant sweet ipsum muffin. Tiramisu donut marzipan croissant lollipop orange cookie sugar vanilla cake. Sugar orange muffin sweet cake croissant sprinkles dolor jelly cake",    
             gallery: ["images/donuts/1.jpg", "images/donuts/2.jpg", "images/donuts/3.jpg"]
         }
-    ]
+    ]       //les informations pour changer les éléments dans le html
+
+    if(document.querySelector(".page-item")) {      //si la classe ".page-item" de la page item.html: est trouvé...
+        initialiserItem()   //appeler la fonction "initialiserItem()"
+    }
+
+   function initialiserItem() {
+
+       var url = window.location.search;    //La variable "url" va chercher tout ce qu'il y a dans les parametres de url (?variable=valeur) ... sert à déterminer dans quel page nous sommes
+       console.log(url);
+       var params = new URLSearchParams(url);   //transform la chaine de caractere de notre variable url en objet
+       console.log(params);
+
+       var type = params.get("type") || 'pizza';    //si il n'y a pas de "type" dans le url, sinon va mettre par défaut "pizza"... type doit être égale au id dans le tableau information
+       console.log(type);
+
+       var contenu = informations.find(element => element.id === type);     //la variable contenu va être l"information qui a le même type que le id
+       console.log(contenu);
+
+
+       var title = document.querySelector(".main-title");   //la variable "title" va sélectionner le main title dans le html
+       title.innerHTML = contenu.title;     //le contenu du titre sera changé dans le html
+
+       var slogan = document.querySelector(".sub-title");   //la variable "slogan" va sélectionner le slogan dans le html
+       slogan.innerHTML = contenu.slogan;   //le contenu du slogan sera changé dans le html
+
+       var desc = document.querySelector(".sub-description p");     //la variable "desc" va sélectionner le p dans la sub-description dans le html
+       desc.innerHTML = contenu.description;    //le contenu de la description sera changé dans le html
+
+       var image =document.querySelector(".sub-image img");     //la variable "image" va sélectionner l'image du div sub-image dans le html
+       image.src = contenu.image;   //la source de l'image sera changé dans le html
+
+       var list = document.querySelector(".type-list")      //la variable "list" va sélectionner la liste dans le html
+       list.innerHTML = "";   // on enleve tous les li par défaut de la liste"";
+
+       for (let i = 0; i < contenu.type.length; i ++) {
+           console.log(contenu.type[i]);
+           let li = document.createElement("li");   //la variable "li" créer un element appelé "li"
+           li.innerHTML = contenu.type[i];  //"li" va ajouter du contenu de "type" dans le html
+
+           list.appendChild(li);    //"list" va ajouter un enfant "li"
+       }
+
+       var thumbnails = document.querySelectorAll(".thumb img")     //la variable "thumbnails" va sélectionner tous les images dans les .thumb dans le html
+       console.log(thumbnails);
+       for (let i = 0; i < thumbnails.length; i++) {
+           var thumb = thumbnails[i];   // on créer une variable thumb avec l'image en cours de la boucle
+           thumb.src = contenu.gallery[i];  //"thumb" va changer la sources d'images dans le html pour celle du contenu gallery
+       }
+
+   }
 
 
 });
